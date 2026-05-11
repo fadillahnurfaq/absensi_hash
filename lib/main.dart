@@ -1,9 +1,8 @@
-import 'package:absensi_hash/views/main/dashboard_view.dart';
 import 'package:absensi_hash/views/main/main_navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
-
 import 'utils/injector.dart';
 import 'utils/styles.dart';
 
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ScreenUtilInit(
       builder: (context, child) {
-        return MaterialApp(
+        return GetMaterialApp(
           title: 'Absensi Hash',
           debugShowCheckedModeBanner: false,
           theme: ThemeData(
@@ -33,6 +32,9 @@ class MyApp extends StatelessWidget {
             ),
             appBarTheme: const AppBarTheme(
               backgroundColor: Colors.white,
+              iconTheme: IconThemeData(
+                color: AppColors.black
+              ),
             )
           ),
           home: const MainNavigation(),

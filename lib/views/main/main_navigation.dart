@@ -41,7 +41,7 @@ class _MainNavigationState extends State<MainNavigation> {
         }
       ),
       bottomNavigationBar: Container(
-         width: double.infinity,
+        width: double.infinity,
         decoration: const BoxDecoration(
           color: AppColors.white,
           boxShadow: [
