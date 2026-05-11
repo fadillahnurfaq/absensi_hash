@@ -38,7 +38,7 @@ class DashboardView extends StatelessWidget {
                                     )
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.all(16.0),
+                                    padding: const EdgeInsets.all(16.0),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       spacing: 6.0,
@@ -67,7 +67,7 @@ class DashboardView extends StatelessWidget {
                                     )
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsets.all(16.0),
+                                    padding: const EdgeInsets.all(16.0),
                                     child: Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       spacing: 6.0,
@@ -93,7 +93,7 @@ class DashboardView extends StatelessWidget {
                       ],
                     ),
                   ),
-                  SliverToBoxAdapter(child: const SizedBox(height: 16.0)),
+                  const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
                   SliverMainAxisGroup(
                     slivers: [
                       SliverToBoxAdapter(
@@ -104,7 +104,7 @@ class DashboardView extends StatelessWidget {
                           ),
                         ),
                       ),
-                      SliverToBoxAdapter(child: const SizedBox(height: 16.0)),
+                      const SliverToBoxAdapter(child: SizedBox(height: 16.0)),
                       SliverList.separated(
                         itemCount: 4,
                         separatorBuilder: (context, index) => const SizedBox(height: 16.0),

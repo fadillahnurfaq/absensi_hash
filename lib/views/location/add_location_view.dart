@@ -1,5 +1,8 @@
 import 'package:absensi_hash/controllers/location/add_location_controller.dart';
+import 'package:absensi_hash/controllers/location/location_controller.dart';
 import 'package:absensi_hash/utils/extensions/context_extensions.dart';
+import 'package:absensi_hash/utils/helper/dialog_helper.dart';
+import 'package:absensi_hash/utils/injector.dart';
 import 'package:absensi_hash/views/location/pick_location_view.dart';
 import 'package:absensi_hash/widgets/button.dart';
 import 'package:absensi_hash/widgets/info_row.dart';
@@ -10,6 +13,7 @@ import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:location_picker_flutter_map/location_picker_flutter_map.dart';
 
+import '../../services/location/location_local_service.dart';
 import '../../utils/styles.dart';
 
 class AddLocationView extends StatefulWidget {
@@ -25,13 +29,29 @@ class _AddLocationViewState extends State<AddLocationView> {
   @override
   void initState() {
     super.initState();
-    _controller = Get.put(AddLocationController());
+    _controller = Get.put(AddLocationController(service: getIt<LocationLocalService>()));
+    _setDelegate();
   }
 
   @override
   void dispose() {
     Get.delete<AddLocationController>();
     super.dispose();
+  }
+
+  void _setDelegate() {
+    _controller.setDelegate(
+      AddLocationControllerDelegate(
+        onHideKeyboard: context.hideKeyboard,
+        onShowLoading: DialogHelper.showLoading,
+        onBack: Get.back,
+        onShowError: (message) => DialogHelper.showSnacbar(message: message),
+        onSuccessSave: (location) {
+          Get.back();
+          Get.find<LocationController>().addLocation(location);
+        },
+      )
+    );
   }
 
   @override
@@ -47,7 +67,7 @@ class _AddLocationViewState extends State<AddLocationView> {
       ),
       body: SafeArea(
         child: ListView(
-          padding: EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(16.0),
           children: [
             SizedBox(
               height: 250.0,
@@ -75,7 +95,7 @@ class _AddLocationViewState extends State<AddLocationView> {
                     right: 16.0,
                     child: AppButton.filled(
                       onPressed: () async {
-                        final result = await Get.to(PickLocationView());
+                        final result = await Get.to(const PickLocationView());
                         if (result is PickedData) {
                           _controller.setSelectedLocation(result);
                         }
@@ -119,13 +139,15 @@ class _AddLocationViewState extends State<AddLocationView> {
                 ),
               ],
             ),
-            child: AppButton.filled(
-              width: double.infinity,
-              onPressed: () {
-              
-              },
-              label: "Save",
-            ),
+            child: Obx(() {
+              final location = _controller.selectedLocationRx.value;
+              return AppButton.filled(
+                width: double.infinity,
+                onPressed: _controller.save,
+                disabled: location == null,
+                label: "Save",
+              );
+            },),
           )
         ],
       ),

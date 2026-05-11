@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:get/get.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'utils/hive/hive_manager.dart';
 import 'utils/injector.dart';
 import 'utils/styles.dart';
 
@@ -10,7 +11,7 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initializeDateFormatting();
   Injector.setUp();
-  // await HiveManager.init();
+  await HiveManager.init();
   runApp(const MyApp());
 }
 

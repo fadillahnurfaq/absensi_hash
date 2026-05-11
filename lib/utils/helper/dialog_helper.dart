@@ -108,9 +108,9 @@ class DialogHelper {
   }
 
 
-  static void showLoading(BuildContext context) {
+  static void showLoading() {
     showDialog(
-      context: context,
+      context: Get.context!,
       barrierDismissible: false,
       barrierColor: Colors.black.withValues(alpha: .1),
       builder: (context) {

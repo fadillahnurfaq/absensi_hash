@@ -62,13 +62,13 @@ class _MainNavigationState extends State<MainNavigation> {
               elevation: 0.0,
               onTap: (value) => _indexVn.value = value,
               currentIndex: index,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
-                  icon: const Icon(Icons.home),
+                  icon: Icon(Icons.home),
                   label: "Home"
                 ),
                 BottomNavigationBarItem(
-                  icon: const Icon(Icons.note),
+                  icon: Icon(Icons.note),
                   label: "Location"
                 ),
               ]
