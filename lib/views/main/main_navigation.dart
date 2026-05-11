@@ -1,6 +1,8 @@
 import 'package:absensi_hash/utils/styles.dart';
+import 'package:absensi_hash/views/attendance/attendance_controller.dart';
 import 'package:absensi_hash/views/main/location_view.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'dashboard_view.dart';
 
 class MainNavigation extends StatefulWidget {
@@ -40,6 +42,21 @@ class _MainNavigationState extends State<MainNavigation> {
           );
         }
       ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Obx(() {
+        final resultAttendances = Get.find<AttendanceController>().resultAttendancesRx.value;
+        final attendances = resultAttendances.resultValue ?? [];
+        final today = attendances.firstWhereOrNull((element) => element.isToday);
+        final bool isEligibleToAbsence = (today == null || today.checkOut.isEmpty) && resultAttendances.isSuccess;
+        if (!isEligibleToAbsence) return const SizedBox.shrink();
+        return FloatingActionButton(
+          backgroundColor: AppColors.primary,
+          child: const Icon(Icons.add),
+          onPressed: () {
+            
+          },
+        );
+      },),
       bottomNavigationBar: Container(
         width: double.infinity,
         decoration: const BoxDecoration(
@@ -53,27 +70,32 @@ class _MainNavigationState extends State<MainNavigation> {
             ),
           ],
         ),
-        child: ValueListenableBuilder(
-          valueListenable: _indexVn,
-          builder: (context, index, child) {
-            return BottomNavigationBar(
-              backgroundColor: AppColors.white,
-              selectedItemColor: AppColors.primary,
-              elevation: 0.0,
-              onTap: (value) => _indexVn.value = value,
-              currentIndex: index,
-              items: const [
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: "Home"
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(Icons.note),
-                  label: "Location"
-                ),
-              ]
-            );
-          }
+        child: BottomAppBar(
+          color: AppColors.white,
+          notchMargin: 5.0,
+          shape: const CircularNotchedRectangle(),
+          child: ValueListenableBuilder(
+            valueListenable: _indexVn,
+            builder: (context, index, child) {
+              return BottomNavigationBar(
+                backgroundColor: AppColors.white,
+                selectedItemColor: AppColors.primary,
+                elevation: 0.0,
+                onTap: (value) => _indexVn.value = value,
+                currentIndex: index,
+                items: const [
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.home),
+                    label: "Home"
+                  ),
+                  BottomNavigationBarItem(
+                    icon: Icon(Icons.note),
+                    label: "Location"
+                  ),
+                ]
+              );
+            }
+          ),
         ),
       ),
     );

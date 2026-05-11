@@ -1,23 +1,23 @@
-import 'package:absensi_hash/models/location/m_location.dart';
+import 'package:absensi_hash/models/attendance/t_attendance.dart';
 import 'package:absensi_hash/utils/hive/hive_boxes.dart';
 import 'package:absensi_hash/utils/hive/hive_services.dart';
 import 'package:dartz/dartz.dart';
 
-class LocationLocalService {
-  const LocationLocalService();
-  Future<Either<String, void>> create(MLocation location) async {
+class AttendanceLocalService {
+  const AttendanceLocalService();
+  Future<Either<String, void>> createOrEdit(TAttendance attendance) async {
     try {
-      final box = await HiveService.getBox(HiveBoxes.location);
-      await box.put(location.id, location.asNewObject());
+      final box = await HiveService.getBox(HiveBoxes.attendance);
+      await box.put(attendance.id, attendance.asNewObject());
       return const Right(null);
     } catch (e) {
       return const Left("Something went wrong. Please contact system administrator.");
     }
   }
 
-  Future<Either<String, List<MLocation>>> getList() async {
+  Future<Either<String, List<TAttendance>>> getList() async {
     try {
-      final box = await HiveService.getBox<MLocation>(HiveBoxes.location);
+      final box = await HiveService.getBox<TAttendance>(HiveBoxes.attendance);
       final list = box.values.map((e) => e).toList();
       list.sort((a, b) {
         final aDate = a.createdAt;

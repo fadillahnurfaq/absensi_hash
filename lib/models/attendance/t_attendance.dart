@@ -15,6 +15,12 @@ class TAttendance {
   final String address;
 
   @HiveField(4)
+  final String checkIn;
+
+  @HiveField(5)
+  final String checkOut;
+
+  @HiveField(6)
   final DateTime? createdAt;
 
   const TAttendance({
@@ -22,6 +28,8 @@ class TAttendance {
     this.latitude = 0.0,
     this.longitude = 0.0,
     this.address = "",
+    this.checkIn = "",
+    this.checkOut = "",
     this.createdAt,
   });
 
@@ -31,7 +39,11 @@ class TAttendance {
       latitude: latitude,
       longitude: longitude,
       address: address,
+      checkIn: checkIn,
+      checkOut: checkOut,
       createdAt: createdAt,
     );
   }
+
+  bool get isToday => createdAt != null && createdAt!.isAfter(DateTime.now().subtract(const Duration(days: 1)));
 }
