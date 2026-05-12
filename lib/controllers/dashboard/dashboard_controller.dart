@@ -3,10 +3,10 @@ import 'package:absensi_hash/models/result.dart';
 import 'package:absensi_hash/services/attendance/attendance_local_service.dart';
 import 'package:get/get.dart';
 
-class AttendanceController extends GetxController {
+class DashboardController extends GetxController {
   final AttendanceLocalService service;
 
-  AttendanceController({
+  DashboardController({
     required this.service,
   });
 

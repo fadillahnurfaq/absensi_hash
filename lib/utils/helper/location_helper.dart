@@ -37,4 +37,17 @@ class LocationHelper {
     });
     return isAccessLocation;
   }
+
+  static Future<loc.LocationData?> getCurrentLocation() async {
+    loc.LocationData? result;
+    final location = await loc.Location.instance.getLocation();
+    if (location.isMock == true) {
+      DialogHelper.showSnacbar(
+        message: "Anda terdeteksi menggunakan lokasi palsu!",
+      );
+    } else {
+      result = location;
+    }
+    return result;
+  }
 }

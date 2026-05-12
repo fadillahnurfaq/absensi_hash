@@ -7,7 +7,7 @@ class LocationLocalService {
   const LocationLocalService();
   Future<Either<String, void>> create(MLocation location) async {
     try {
-      final box = await HiveService.getBox(HiveBoxes.location);
+      final box = await HiveService.getBox<MLocation>(HiveBoxes.location);
       await box.put(location.id, location.asNewObject());
       return const Right(null);
     } catch (e) {

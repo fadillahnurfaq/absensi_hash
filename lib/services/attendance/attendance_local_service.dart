@@ -7,7 +7,7 @@ class AttendanceLocalService {
   const AttendanceLocalService();
   Future<Either<String, void>> createOrEdit(TAttendance attendance) async {
     try {
-      final box = await HiveService.getBox(HiveBoxes.attendance);
+      final box = await HiveService.getBox<TAttendance>(HiveBoxes.attendance);
       await box.put(attendance.id, attendance.asNewObject());
       return const Right(null);
     } catch (e) {

@@ -1,5 +1,6 @@
 import 'package:absensi_hash/utils/styles.dart';
-import 'package:absensi_hash/views/attendance/attendance_controller.dart';
+import 'package:absensi_hash/controllers/dashboard/dashboard_controller.dart';
+import 'package:absensi_hash/views/attendance/attendance_view.dart';
 import 'package:absensi_hash/views/main/location_view.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -44,7 +45,7 @@ class _MainNavigationState extends State<MainNavigation> {
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: Obx(() {
-        final resultAttendances = Get.find<AttendanceController>().resultAttendancesRx.value;
+        final resultAttendances = Get.find<DashboardController>().resultAttendancesRx.value;
         final attendances = resultAttendances.resultValue ?? [];
         final today = attendances.firstWhereOrNull((element) => element.isToday);
         final bool isEligibleToAbsence = (today == null || today.checkOut.isEmpty) && resultAttendances.isSuccess;
@@ -52,9 +53,7 @@ class _MainNavigationState extends State<MainNavigation> {
         return FloatingActionButton(
           backgroundColor: AppColors.primary,
           child: const Icon(Icons.add),
-          onPressed: () {
-            
-          },
+          onPressed: () => Get.to(AttendanceView(attendance: today)),
         );
       },),
       bottomNavigationBar: Container(

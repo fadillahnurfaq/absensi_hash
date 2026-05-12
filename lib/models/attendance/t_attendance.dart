@@ -1,5 +1,7 @@
 import 'package:hive_ce/hive.dart';
 
+part 't_attendance.g.dart';
+
 @HiveType(typeId: 1)
 class TAttendance {
   @HiveField(0)
@@ -23,6 +25,12 @@ class TAttendance {
   @HiveField(6)
   final DateTime? createdAt;
 
+  @HiveField(7)
+  final DateTime? updatedAt;
+
+  @HiveField(8)
+  final String locationId;
+
   const TAttendance({
     this.id = "",
     this.latitude = 0.0,
@@ -31,6 +39,8 @@ class TAttendance {
     this.checkIn = "",
     this.checkOut = "",
     this.createdAt,
+    this.updatedAt,
+    this.locationId = "",
   });
 
   TAttendance asNewObject() {
@@ -42,6 +52,8 @@ class TAttendance {
       checkIn: checkIn,
       checkOut: checkOut,
       createdAt: createdAt,
+      updatedAt: updatedAt,
+      locationId: locationId,
     );
   }
 

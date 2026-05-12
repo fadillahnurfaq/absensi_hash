@@ -111,7 +111,7 @@ class _AddLocationViewState extends State<AddLocationView> {
               final location = _controller.selectedLocationRx.value;
               return InfoRow(
                 title: "Address",
-                value: location != null ? location.address : "",
+                value: location?.address,
               );
             },)
           ],

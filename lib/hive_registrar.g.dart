@@ -3,16 +3,20 @@
 // Check in to version control
 
 import 'package:hive_ce/hive_ce.dart';
+import 'package:absensi_hash/models/attendance/t_attendance.dart';
 import 'package:absensi_hash/models/location/m_location.dart';
 
 extension HiveRegistrar on HiveInterface {
   void registerAdapters() {
     registerAdapter(MLocationAdapter());
+    registerAdapter(TAttendanceAdapter());
   }
 }
 
 extension IsolatedHiveRegistrar on IsolatedHiveInterface {
+
   void registerAdapters() {
     registerAdapter(MLocationAdapter());
+    registerAdapter(TAttendanceAdapter());
   }
 }
